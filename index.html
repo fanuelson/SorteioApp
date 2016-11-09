@@ -1,0 +1,83 @@
+<html lang="pt" >
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   <!-- Angular Material style sheet -->
+   <link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link rel="stylesheet" href="node_modules/material-icons/css/material-icons.min.css">
+   <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+</head>
+
+<body ng-app="myApp" layout="column" ng-cloak>
+
+   <md-content ng-controller="appCtrl"  flex>
+
+      <md-toolbar>
+         <div layout="row" layout-padding layout-margin>
+            <md-button ng-click="toggleMenu()" >
+               <md-icon >menu</md-icon>
+            </md-button>
+            <h1 class="md-title">Sorteio App</h1>
+         </div>
+      </md-toolbar>
+
+      <!-- MENU -->
+      <div  ng-include="'menu.html'" ></div>
+
+      <!-- CONTENT -->
+      <div ui-view="starterContent" layout="column" layout-padding layout-wrap flex>
+          Loading...
+      </div>
+
+
+   </md-content>
+
+   <!-- JQUERY -->
+      <script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+   <!-- STRING -->
+      <script src="node_modules/string/dist/string.min.js"></script>
+
+   <!-- semantic ui -->
+      <script src="semantic/dist/semantic.min.js"></script>
+
+   <!-- Angular -->
+      <script src="node_modules/angular/angular.min.js"></script>
+
+   <!-- Angular internationalization -->
+      <script src="node_modules/angular-i18n/angular-locale_pt-br.js"></script>
+
+   <!-- Angular UI ROUTER-->
+      <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+   <!-- Angular Material requires Angular.js Libraries -->
+      <script src="node_modules/angular-animate/angular-animate.min.js"></script>
+      <script src="node_modules/angular-aria/angular-aria.min.js"></script>
+      <script src="node_modules/angular-messages/angular-messages.min.js"></script>
+
+      <script src="node_modules/moment/moment.js"></script>
+
+   <!-- Angular Material Library -->
+      <script src="node_modules/angular-material/angular-material.min.js"></script>
+
+   <!-- angular-input-masks -->
+      <script src="node_modules/angular-input-masks/releases/angular-input-masks-standalone.min.js"></script>
+
+   <!-- Angular application bootstrap  -->
+      <script src="app.js"></script>
+
+   <!-- APP CONFIG -->
+      <script src="app.config.js"></script>
+
+   <!-- SERVICES -->
+
+   <!-- CONTROLLERS -->
+      <script src="AppController.js"></script>
+      <script src="pages/HomeController.js"></script>
+
+   <!-- INTERCEPTOR -->
+
+
+</body>
+</html>

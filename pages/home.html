@@ -1,0 +1,48 @@
+<div ng-controller="homeController"  layout-align="center center" >
+
+   <div flex >
+      <h2 class="md-title">Participantes</h2>
+
+      <md-chips ng-model="participantes" >
+   </div>
+
+   <div flex  layout layout-align="center center">
+      <md-button ng-click="sortear()" class="md-raised md-primary">Sortear</md-button>
+   </div>
+
+<div layout="row">
+
+   <md-checkbox ng-model="hide" class="md-raised md-primary">
+   </md-checkbox>
+   <md-input-container>
+      <label>Mostrar Somente Para</label>
+      <input type="text" ng-model="showOnlyTo">
+   </md-input-container>
+</div>
+   <br>
+   <div flex layout="column">
+      <h2 class="md-title">Resultado do Sorteio: </h2>
+      <table>
+         <tbody>
+            <tr ng-repeat="par in paresSorteados" ng-show="isShowFor(par.pessoa1)">
+               <td>
+                  <a class="ui image label">
+                     <i class="user large icon"></i>
+                    {{par.pessoa1}}
+                  </a>
+               </td>
+               <td>
+                  >>>>>
+               </td>
+               <td>
+                  <a class="ui image label">
+                     <i class="user large icon"></i>
+                    {{par.pessoa2}}
+                  </a>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+
+</div>
