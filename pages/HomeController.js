@@ -3,7 +3,11 @@
    var homeController = function($scope) {
       var vm = $scope;
 
+      vm.participante = {};
+
       vm.participantes = [];
+
+      vm.participantesParaSortear = [];
 
       vm.participantesEmbaralhados = [];
 
@@ -13,25 +17,41 @@
 
       vm.hide = false;
 
+      vm.adicionarParticipante = function() {
+          vm.participantes.push(vm.participante);
+          vm.participante = {};
+      }
+
+      vm.querySearch = function(criteria) {
+          var results = [];
+          vm.participantes.forEach(function(p, i){
+             if(p.nome.toLowerCase().includes(criteria.toLowerCase())) {
+                 results.push(p);
+             }
+          });
+          console.log(criteria);
+          return results;
+      }
+
       vm.isShowFor = function(pessoa) {
          if(S(vm.showOnlyTo).isEmpty()) {
             return !vm.hide;
          }
-         return vm.showOnlyTo.toLowerCase() == pessoa.toLowerCase();
+         return vm.showOnlyTo.nome.toLowerCase() == pessoa.nome.toLowerCase();
       }
 
       var montarParesSorteados = function() {
          vm.paresSorteados = [];
-         for (var i = 0; i < vm.participantes.length; i++) {
+         for (var i = 0; i < vm.participantesParaSortear.length; i++) {
             vm.paresSorteados.push({
-               pessoa1: vm.participantes[i],
+               pessoa1: vm.participantesParaSortear[i],
                pessoa2: vm.participantesEmbaralhados[i]
             });
          }
       }
 
       vm.sortear = function() {
-         vm.participantesEmbaralhados = vm.participantes.slice(0, vm.participantes.length);
+         vm.participantesEmbaralhados = vm.participantesParaSortear.slice(0, vm.participantesParaSortear.length);
          embaralhar(vm.participantesEmbaralhados);
          montarParesSorteados();
       }

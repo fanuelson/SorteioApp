@@ -1,24 +1,58 @@
-<div ng-controller="homeController"  layout-align="center center" >
+<div ng-controller="homeController"  layout-align="center center" ng-cloak>
 
-   <div flex >
+    <div flex layout="row" >
+        <md-input-container layout="bottom center" style="margin-top: 10px" flex="20">
+           <input type="text" ng-model="participante.nome" placeholder="Nome do Participante">
+        </md-input-container>
+
+        <md-input-container layout="bottom center" style="margin-top: 10px" flex="20">
+           <input type="text" ng-model="participante.email" placeholder="Email do Parcicipante">
+        </md-input-container>
+
+        <div flex  layout layout-align="start start">
+           <md-button ng-click="adicionarParticipante()" class="md-raised md-primary">Adicionar</md-button>
+        </div>
+    </div>
+
+
+   <div flex>
       <h2 class="md-title">Participantes</h2>
+      <div ng-repeat="part in participantes track by part.nome">
+          Nome: {{part.nome}} ------- Email: {{part.email}}
+      </div>
+      <div ng-show="participantes.length <= 0">
+          Nenhum participante adicionado
+      </div>
+   </div>
 
-      <md-chips ng-model="participantes" >
+   <md-divider></md-divider>
+   <div flex>
+
+       <h2 class="md-title">Participantes Para Sortear</h2>
+
+       <md-contact-chips
+           ng-model="participantesParaSortear"
+           md-contacts="querySearch($query)"
+           md-contact-name="nome"
+           md-require-match="true"
+           filter-selected="true"
+           placeholder="To">
+       </md-contact-chips>
    </div>
 
    <div flex  layout layout-align="center center">
       <md-button ng-click="sortear()" class="md-raised md-primary">Sortear</md-button>
    </div>
 
-<div layout="row">
+    <div layout="row">
 
-   <md-checkbox ng-model="hide" class="md-raised md-primary">
-   </md-checkbox>
-   <md-input-container>
-      <label>Mostrar Somente Para</label>
-      <input type="text" ng-model="showOnlyTo">
-   </md-input-container>
-</div>
+       <md-checkbox ng-model="hide" class="md-raised md-primary">
+       </md-checkbox>
+
+       <md-input-container>
+          <input type="text" ng-model="showOnlyTo" placeholder="Mostrar Somente Para">
+       </md-input-container>
+    </div>
    <br>
    <div flex layout="column">
       <h2 class="md-title">Resultado do Sorteio: </h2>
@@ -28,7 +62,7 @@
                <td>
                   <a class="ui image label">
                      <i class="user large icon"></i>
-                    {{par.pessoa1}}
+                    {{par.pessoa1.nome}}
                   </a>
                </td>
                <td>
@@ -37,7 +71,7 @@
                <td>
                   <a class="ui image label">
                      <i class="user large icon"></i>
-                    {{par.pessoa2}}
+                    {{par.pessoa2.nome}}
                   </a>
                </td>
             </tr>
