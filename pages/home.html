@@ -1,42 +1,76 @@
-<div ng-controller="homeController"  layout-align="center center" ng-cloak>
+<div ng-controller="homeController"  layout-align="center center" layout-sm="column" ng-cloak>
 
-    <div flex layout="row" >
-        <md-input-container layout="bottom center" style="margin-top: 10px" flex="20">
-           <input type="text" ng-model="participante.nome" placeholder="Nome do Participante">
-        </md-input-container>
+   <div flex layout="row" layout-xs="column">
 
-        <md-input-container layout="bottom center" style="margin-top: 10px" flex="20">
-           <input type="text" ng-model="participante.email" placeholder="Email do Parcicipante">
-        </md-input-container>
+      <div flex-xs="100" flex-gt-sm="50" flex layout-gt-sm="row" layout-padding>
+         <md-input-container layout="bottom center" style="margin-top: 10px" flex-xs="100" flex>
+            <input type="text" ng-model="participante.nome" placeholder="Nome do Participante">
+         </md-input-container>
 
-        <div flex  layout layout-align="start start">
-           <md-button ng-click="adicionarParticipante()" class="md-raised md-primary">Adicionar</md-button>
-        </div>
-    </div>
+         <md-input-container layout="bottom center" style="margin-top: 10px" flex-xs="100" flex>
+            <input type="text" ng-model="participante.email" placeholder="Email do Parcicipante">
+         </md-input-container>
 
-
-   <div flex>
-      <h2 class="md-title">Participantes</h2>
-      <div ng-repeat="part in participantes track by part.nome">
-          Nome: {{part.nome}} ------- Email: {{part.email}}
+         <div   layout layout-align="start start" flex-xs="100">
+            <md-button ng-click="adicionarParticipante()" class="md-raised md-primary">
+               Adicionar
+               <md-icon >send</md-icon>
+            </md-button>
+         </div>
       </div>
-      <div ng-show="participantes.length <= 0">
-          Nenhum participante adicionado
+
+      <div flex-xs="100" >
+         <h2 class="md-title">Participantes</h2>
+
+         <div flex layout-padding>
+            <table class="ui very basic selectable collapsing celled table">
+               <thead>
+                  <tr>
+                     <th>Nome</th>
+                     <th>Email</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr ng-if="participantes.length <= 0">
+                     <td colspan="2">
+                        Nenhum participante adicionado
+                     </td>
+                  </tr>
+                  <tr ng-repeat="part in participantes track by part.nome">
+                     <td>
+                        <h4 class="ui header">
+                           <div class="content">
+                              <div class="sub header">
+                                 {{part.nome}}
+                              </div>
+                           </div>
+                        </h4>
+                     </td>
+                     <td>
+                        {{part.email}}
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
       </div>
+
    </div>
 
-   <md-divider></md-divider>
+   <h4 class="ui horizontal divider header">
+     <i class="cubes icon"></i>
+     Sorteio
+   </h4>
+
    <div flex>
-
        <h2 class="md-title">Participantes Para Sortear</h2>
-
        <md-contact-chips
            ng-model="participantesParaSortear"
            md-contacts="querySearch($query)"
            md-contact-name="nome"
            md-require-match="true"
            filter-selected="true"
-           placeholder="To">
+           placeholder="Presentes no Sorteio">
        </md-contact-chips>
    </div>
 
@@ -46,7 +80,7 @@
 
     <div layout="row">
 
-       <md-checkbox ng-model="hide" class="md-raised md-primary">
+       <md-checkbox ng-model="hideSorteio" class="md-raised md-primary" aria-label="?">
        </md-checkbox>
 
        <md-input-container>
@@ -55,7 +89,17 @@
     </div>
    <br>
    <div flex layout="column">
-      <h2 class="md-title">Resultado do Sorteio: </h2>
+      <h2 class="md-title md-red" layout="row" layout-xs="column">
+
+            Resultado do Sorteio:
+            <md-button ng-click="sendNotification()"
+               ng-disabled="paresSorteados.length <= 0 || notificationLoading"
+               class="md-raised md-primary" layout="row">
+               Enviar Notificação
+               <md-icon>email</md-icon>
+               <md-progress-circular ng-show="notificationLoading" md-diameter="20"></md-progress-circular>
+            </md-button>
+      </h2>
       <table>
          <tbody>
             <tr ng-repeat="par in paresSorteados" ng-show="isShowFor(par.pessoa1)">

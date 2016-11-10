@@ -1,6 +1,6 @@
 (function() {
 
-   var homeController = function($scope) {
+   var homeController = function($scope, $mdToast, notificacaoEmailService) {
       var vm = $scope;
 
       vm.participante = {};
@@ -15,11 +15,16 @@
 
       vm.showOnlyTo ;
 
-      vm.hide = false;
+      vm.hideSorteio = false;
 
       vm.adicionarParticipante = function() {
-          vm.participantes.push(vm.participante);
-          vm.participante = {};
+         if(S(vm.participante.nome).isEmpty() || S(vm.participante.email).isEmpty()) {
+            return;
+         }
+         vm.participante.nome  = vm.participante.nome.trim();
+         vm.participante.email = vm.participante.email.trim();
+         vm.participantes.push(vm.participante);
+         vm.participante = {};
       }
 
       vm.querySearch = function(criteria) {
@@ -29,13 +34,12 @@
                  results.push(p);
              }
           });
-          console.log(criteria);
           return results;
       }
 
       vm.isShowFor = function(pessoa) {
          if(S(vm.showOnlyTo).isEmpty()) {
-            return !vm.hide;
+            return !vm.hideSorteio;
          }
          return vm.showOnlyTo.nome.toLowerCase() == pessoa.nome.toLowerCase();
       }
@@ -54,6 +58,8 @@
          vm.participantesEmbaralhados = vm.participantesParaSortear.slice(0, vm.participantesParaSortear.length);
          embaralhar(vm.participantesEmbaralhados);
          montarParesSorteados();
+
+         console.log(angular.toJson(vm.paresSorteados));;
       }
 
       var getRandomEntre = function(n1, n2) {
@@ -77,10 +83,54 @@
          arr[l2] = aux;
       }
 
+      vm.notificationLoading = false;
+
+      var startNotificationLoading = function() {
+         vm.notificationLoading = true;
+      }
+
+      var stopNotificationLoading = function() {
+         vm.notificationLoading = false;
+      }
+      vm.sendNotification = function() {
+         startNotificationLoading();
+         $promise = notificacaoEmailService.sendNotification(vm.paresSorteados);
+         $promise.success(function(res){
+            vm.sucessoNotification = res;
+            stopNotificationLoading();
+            showSuccessToast(res.mensagem);
+         }).error(function(res){
+            stopNotificationLoading();
+            showErrorToast(res.mensagem);
+         });
+      }
+
+      var showSuccessToast = function(mensagem) {
+         $mdToast.show({
+            hideDelay   : 5000,
+            position    : 'bottom right',
+            controller  : 'successToastController',
+            templateUrl : '/toasts/successToast.html',
+            msgSuccess: mensagem
+         });
+      }
+
+      var showErrorToast = function(mensagem) {
+         $mdToast.show({
+            hideDelay   : 5000,
+            position    : 'bottom right',
+            controller  : 'errorToastController',
+            templateUrl : '/toasts/errorToast.html',
+            msgErro: mensagem
+         });
+      }
+
    }
 
    var depends = [
       '$scope',
+      '$mdToast',
+      'notificacaoEmailService',
       homeController
    ]
 

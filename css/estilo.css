@@ -1,0 +1,18 @@
+.app-green { color: #2ECC40 !important; }
+.app-red { color: #FF695E !important; }
+
+/* material icons SIZE */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* material icons COLOR */
+.material-icons.md-red { color: #FF695E !important; }
+.material-icons.md-blue { color: #54C8FF !important; }
+.material-icons.md-yellow { color: #ffdf05 !important; }
+.material-icons.md-orange { color: orange !important; }
+.material-icons.md-green { color: #2ECC40 !important; }
+.material-icons.md-black { color: black !important; }
+
+.material-icons.md-bg-black { background: black !important; }

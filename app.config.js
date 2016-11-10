@@ -4,6 +4,9 @@
 
 	/* -- CONSTANTS CONFIG -- */
 	angular.module('myApp').constant(
+		"APP_CONFIG", {
+			"REST_BASE_URL" : "http://localhost:8080/sorteio-web-api/api",
+		}
 	);
 	/* -- CONSTANTS CONFIG -- */
 
