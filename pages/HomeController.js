@@ -17,14 +17,41 @@
 
       vm.hideSorteio = false;
 
+      vm.isParticipantesEquals = function(p1, p2) {
+          return p1.nome == p2.nome || p1.email == p2.email;
+      }
+
+      vm.participanteExistente = function(part) {
+          for(var i = 0; i < vm.participantes.length; i++ ) {
+              var p = vm.participantes[i];
+              if(vm.isParticipantesEquals(p, part)) {
+                     return true;
+              }
+          }
+
+          return false;
+      }
+
       vm.adicionarParticipante = function() {
-         if(S(vm.participante.nome).isEmpty() || S(vm.participante.email).isEmpty()) {
+        if(S(vm.participante.nome).isEmpty())  return;
+        if(S(vm.participante.email).isEmpty())  return;
+        if(vm.participanteExistente(vm.participante)) {
+            showErrorToast("Participante ja adicionado.");
             return;
-         }
+        }
+
          vm.participante.nome  = vm.participante.nome.trim();
          vm.participante.email = vm.participante.email.trim();
          vm.participantes.push(vm.participante);
          vm.participante = {};
+      }
+
+      vm.removerParticipante = function(index) {
+          vm.participantes.splice(index, 1);
+      }
+
+      vm.adicionarTodosParticipantesParaSorteio = function() {
+          vm.participantesParaSortear = vm.participantes.slice(0, vm.participantes.length);
       }
 
       vm.querySearch = function(criteria) {

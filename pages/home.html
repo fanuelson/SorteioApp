@@ -28,11 +28,12 @@
                   <tr>
                      <th>Nome</th>
                      <th>Email</th>
+                     <th>Remover</th>
                   </tr>
                </thead>
                <tbody>
                   <tr ng-if="participantes.length <= 0">
-                     <td colspan="2">
+                     <td colspan="3">
                         Nenhum participante adicionado
                      </td>
                   </tr>
@@ -49,10 +50,22 @@
                      <td>
                         {{part.email}}
                      </td>
+                     <td>
+                         <div layout layout-align="end" flex>
+
+                             <a href="" ng-click="removerParticipante($index)">
+                                 <i class="material-icons md-red">backspace</i>
+                             </a>
+                         </div>
+                     </td>
                   </tr>
                </tbody>
             </table>
          </div>
+         <md-button class="md-primary md-raised" layout="row" ng-click="adicionarTodosParticipantesParaSorteio()">
+             <i class="material-icons">keyboard_arrow_down</i>
+             add all
+         </md-button>
       </div>
 
    </div>
