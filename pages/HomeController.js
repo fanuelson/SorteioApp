@@ -17,6 +17,8 @@
 
       vm.hideSorteio = false;
 
+      vm.csvJson = {};
+
       vm.isParticipantesEquals = function(p1, p2) {
           return p1.nome == p2.nome || p1.email == p2.email;
       }
@@ -150,6 +152,24 @@
             templateUrl : '/toasts/errorToast.html',
             msgErro: mensagem
          });
+      }
+      
+      vm.csvFileImportCallback = function() {
+            for (var i = 0; i < vm.csvJson.length ; i++) {
+               var nome = vm.csvJson[i]['0'];
+               var email = vm.csvJson[i]['1'];
+               if(!S(nome).isEmpty() && !S(email).isEmpty() && nome.toLowerCase() !== 'nome') {
+                  var pp = {
+                     'nome' : nome,
+                     'email': email
+                  }
+                  if(!vm.participanteExistente(pp)) {
+                     vm.participantes.push(pp);
+                  }
+               }
+            }
+            vm.$apply();
+
       }
 
    }

@@ -1,6 +1,6 @@
 <div ng-controller="homeController"  layout-align="center center" layout-sm="column" ng-cloak>
 
-   <div flex layout="row" layout-xs="column">
+   <div flex layout="row" layout-xs="column" style="clear:both;">
 
       <div flex-xs="100" flex-gt-sm="50" flex layout-gt-sm="row" layout-padding>
          <md-input-container layout="bottom center" style="margin-top: 10px" flex-xs="100" flex>
@@ -20,10 +20,17 @@
       </div>
 
       <div flex-xs="100" >
+            <ng-csv-import material
+               md-button-class="md-icon-button md-raised md-primary md-12"
+                separator="','"
+                result="csvJson"
+                accept="'.csv'"
+                callback="csvFileImportCallback"></ng-csv-import>
+                <i class="material-icons">file_upload</i>
          <h2 class="md-title">Participantes</h2>
 
-         <div flex layout-padding>
-            <table class="ui very basic selectable collapsing celled table">
+         <div flex="100" layout-padding style="clear:both;">
+            <table class="ui very basic selectable collapsing celled table" flex="100" style="clear:both;">
                <thead>
                   <tr>
                      <th>Nome</th>
@@ -70,12 +77,12 @@
 
    </div>
 
-   <h4 class="ui horizontal divider header">
+   <h4 class="ui horizontal divider header" style="clear:both;">
      <i class="cubes icon"></i>
      Sorteio
    </h4>
 
-   <div flex>
+   <div flex style="clear:both;">
        <h2 class="md-title">Participantes Para Sortear</h2>
        <md-contact-chips
            ng-model="participantesParaSortear"
