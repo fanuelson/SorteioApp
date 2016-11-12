@@ -20,14 +20,18 @@
       </div>
 
       <div flex-xs="100" >
+         <div layout="row">
+
+            <h2 class="md-title">Participantes</h2>
+            <i class="material-icons">file_upload</i>
             <ng-csv-import material
-               md-button-class="md-icon-button md-raised md-primary md-12"
-                separator="','"
-                result="csvJson"
-                accept="'.csv'"
-                callback="csvFileImportCallback"></ng-csv-import>
-                <i class="material-icons">file_upload</i>
-         <h2 class="md-title">Participantes</h2>
+            md-button-class="md-icon-button md-raised md-primary md-12"
+            separator="','"
+            result="csvJson"
+            accept="'.csv'"
+            callback="csvFileImportCallback"></ng-csv-import>
+
+         </div>
 
          <div flex="100" layout-padding style="clear:both;">
             <table class="ui very basic selectable collapsing celled table" flex="100" style="clear:both;">
