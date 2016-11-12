@@ -1,0 +1,21 @@
+{
+  "name": "SorteioApp",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "fanuel nunes <fanuelson@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "none",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-csv-import": "^0.0.37"
+  }
+}

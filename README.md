@@ -6,6 +6,10 @@ npm install -g bower
 
 npm install
 
+bower install
+
 cd semantic
 
 gulp build
+
+READY!
