@@ -113,6 +113,13 @@
     </div>
    <br>
    <div flex layout="column">
+      <div layout="row">
+         <div ng-if="mensagensErro.length > 0" class="ui error message" flex-xs="100" flex-gt-sm="40">
+            <div ng-repeat="msg in mensagensErro">
+               {{msg}}
+            </div>
+         </div>
+      </div>
       <h2 class="md-title md-red" layout="row" layout-xs="column">
 
             Resultado do Sorteio:

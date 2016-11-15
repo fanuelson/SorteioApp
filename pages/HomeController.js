@@ -123,6 +123,7 @@
       }
       vm.sendNotification = function() {
          startNotificationLoading();
+         vm.mensagensErro = [];
          $promise = notificacaoEmailService.sendNotification(vm.paresSorteados);
          $promise.success(function(res){
             vm.sucessoNotification = res;
@@ -130,8 +131,13 @@
             showSuccessToast(res.mensagem);
          }).error(function(res){
             stopNotificationLoading();
-            showErrorToast(res.mensagem);
+            montarMensagens(res);
          });
+      }
+      
+      function montarMensagens(res) {
+         vm.mensagensErro = vm.mensagensErro.concat(res.validacoesRegraNegocio);
+
       }
 
       var showSuccessToast = function(mensagem) {
@@ -153,7 +159,7 @@
             msgErro: mensagem
          });
       }
-      
+
       vm.csvFileImportCallback = function() {
             for (var i = 0; i < vm.csvJson.length ; i++) {
                var nome = vm.csvJson[i]['0'];
